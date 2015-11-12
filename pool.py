@@ -23,7 +23,8 @@ class NoDaemonPool(Pool):
     Process = NoDaemonProcess
 
 
-class Worker:
+# This class wraps the actual pool (which, according to the boolean attribute, may be Pool or NoDaemonPool).
+class WorkersPool:
     # Daemonic process (the default implementation in multiprocessing.pool.Pool) cannot instantiate subprocesses.
     def __init__(self, daemon, queue_elements, pool_size, parameters):
         self.pool = None
