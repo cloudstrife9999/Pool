@@ -3,9 +3,20 @@
 from pool import WorkersPool
 
 
-w = WorkersPool(True, range(1000), 2, 5, ["initial message", ": ", "random string."])
-w.init_and_start_pool()
+def main():
+    print "@@@@@@@@@@ Starting pool made by daemonic processes... @@@@@@@@@@"
+
+    w = WorkersPool(True, range(1000), 2, 5, ["initial message", ": ", "random string."])
+    w.init_and_start_pool()
+
+    print "@@@@@@@@@@ End of pool made by daemonic processes. @@@@@@@@@@"
+    print "@@@@@@@@@@ Starting pool made by non-daemonic processes... @@@@@@@@@@"
+
+    w = WorkersPool(False, range(1000, 2000), 2, 5, ["initial message", ": ", "random string."])
+    w.init_and_start_pool()
+
+    print "@@@@@@@@@@ End of pool made by non-daemonic processes... @@@@@@@@@@"
 
 
-w = WorkersPool(False, range(1000, 2000), 2, 5, ["initial message", ": ", "random string."])
-w.init_and_start_pool()
+if __name__ == '__main__':
+    main()
