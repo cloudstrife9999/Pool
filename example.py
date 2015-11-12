@@ -2,9 +2,10 @@
 
 from pool import WorkersPool
 
-w = WorkersPool(True, range(100), 5, [])
+
+w = WorkersPool(True, range(1000), 2, 5, ["initial message", ": ", "random string."])
 w.init_and_start_pool()
 
 
-w = WorkersPool(False, range(1000, 2000), 5, [])
+w = WorkersPool(False, range(1000, 2000), 2, 5, ["initial message", ": ", "random string."])
 w.init_and_start_pool()
