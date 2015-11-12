@@ -8,4 +8,3 @@ w.init_and_start_pool()
 
 w = WorkersPool(False, range(1000, 2000), 5, [])
 w.init_and_start_pool()
-

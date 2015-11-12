@@ -4,7 +4,7 @@ from multiprocessing.pool import Pool
 from multiprocessing import Process, Queue
 
 
-# Daemonic process (the default implementation in multiprocessing.pool.Pool) cannot instantiate subprocesses.
+# Daemonic processes (the default implementation in multiprocessing.pool.Pool) cannot instantiate subprocesses.
 class NoDaemonProcess(Process):
     def _get_daemon(self):
         return False
@@ -15,7 +15,7 @@ class NoDaemonProcess(Process):
     daemon = property(_get_daemon, _set_daemon)
 
 
-# Daemonic process (the default implementation in multiprocessing.pool.Pool) cannot instantiate subprocesses.
+# Daemonic processes (the default implementation in multiprocessing.pool.Pool) cannot instantiate subprocesses.
 class NoDaemonPool(Pool):
     def __reduce__(self):
         super(NoDaemonPool, self).__reduce__()
@@ -25,7 +25,7 @@ class NoDaemonPool(Pool):
 
 # This class wraps the actual pool (which, according to the boolean attribute, may be Pool or NoDaemonPool).
 class WorkersPool:
-    # Daemonic process (the default implementation in multiprocessing.pool.Pool) cannot instantiate subprocesses.
+    # Daemonic processes (the default implementation in multiprocessing.pool.Pool) cannot instantiate subprocesses.
     def __init__(self, daemon, queue_elements, pool_size, parameters):
         self.pool = None
         self.__daemon = daemon  # boolean
@@ -62,6 +62,8 @@ class WorkersPool:
 
         self.__wait_for_completion()
 
+        print "All the workers in the pool have terminated their work."
+
     def __wait_for_completion(self):
         self.pool.close()
         self.pool.join()
@@ -72,7 +74,8 @@ class WorkersPool:
         while not self.__queue.empty():
             print self.__queue.get()
 
-        print "Job over."
+        print "Empty queue."
+        print "Job over for this worker, waiting for the others..."
 
     def __working_function(self, parameters):
         self.__test_function(parameters)
